@@ -1,5 +1,4 @@
 const { REST, Routes } = require("discord.js");
-const { TicTacToe } = require("discord-tictactoe");
 require("dotenv").config();
 
 const botToken = process.env.BOT_TOKEN;
@@ -12,6 +11,10 @@ const commands = [
     {
         name: "rolldice",
         description: "Rolls a Die",
+    },
+    {
+        name: "joke",
+        description: "Makes a random joke",
     },
     {
         name: "getweather",

@@ -2,6 +2,8 @@
 
 EternalBot is a versatile and interactive bot designed to enhance your Discord server experience. It comes with a variety of features and commands to keep your community engaged and entertained.
 
+To see the bot in action, join the Discord server [here.](https://discord.gg/BGt6fTSv)
+
 ## Features
 
 - **Interactive Games**: Play games like Tic-Tac-Toe directly in your Discord server.

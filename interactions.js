@@ -1,6 +1,5 @@
 const axios = require("axios");
 require("dotenv").config();
-const fetch = require("node-fetch");
 
 const insults = [
     "Go drown in a lake of diet coke you neutered asshole.",

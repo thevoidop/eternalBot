@@ -2,9 +2,10 @@ const { Client, Events, GatewayIntentBits } = require("discord.js");
 const TicTacToe = require("discord-tictactoe");
 const { roastMe, rollDice, getWeather } = require("./interactions");
 const { tictactoe, startGame, aiMove } = require("./tictactoe");
+const keepalive = require("./keepalive")
 
 require("dotenv").config();
-
+keepalive();
 const botToken = process.env.BOT_TOKEN;
 const apiKey = process.env.OPENWEATHERMAP_API_KEY;
 const game = new TicTacToe({ language: "en" });

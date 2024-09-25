@@ -1,5 +1,6 @@
 const axios = require("axios");
 require("dotenv").config();
+const fetch = require("node-fetch");
 
 const insults = [
     "Go drown in a lake of diet coke you neutered asshole.",
@@ -58,8 +59,22 @@ async function getWeather(interaction, apiKey) {
     }
 }
 
+async function fetchJoke(interaction) {
+    try {
+        const response = await axios.get("https://icanhazdadjoke.com/slack", {
+            headers: {
+                Accept: "application/json",
+            },
+        });
+        await interaction.reply(response.data.attachments[0].text);
+    } catch (error) {
+        console.error("Error fetching joke:", error);
+    }
+}
+
 module.exports = {
     roastMe,
     rollDice,
     getWeather,
+    fetchJoke,
 };

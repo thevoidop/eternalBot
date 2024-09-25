@@ -1,6 +1,7 @@
 const { Client, GatewayIntentBits } = require("discord.js");
 const TicTacToe = require("discord-tictactoe");
 const { roastMe, rollDice, getWeather } = require("./interactions");
+const keepalive = require("./keepalive");
 
 require("dotenv").config();
 
@@ -67,3 +68,4 @@ client.on("interactionCreate", async (interaction) => {
 });
 
 client.login(botToken);
+keepalive();

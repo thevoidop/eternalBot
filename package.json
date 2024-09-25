@@ -16,7 +16,9 @@
         "discord-tictactoe": "^4.2.0",
         "discord.js": "^14.16.2",
         "discordbot": "file:",
-        "express": "^4.21.0",
         "dotenv": "^16.4.5",
+        "express": "^4.21.0",
+        "nodemon": "^3.1.7",
+        "openai": "^4.63.0"
     }
 }

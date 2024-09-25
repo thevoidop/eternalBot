@@ -1,8 +1,7 @@
 const { Client, GatewayIntentBits } = require("discord.js");
 const TicTacToe = require("discord-tictactoe");
-const { roastMe, rollDice, getWeather } = require("./interactions");
+const { roastMe, rollDice, getWeather, fetchJoke } = require("./interactions");
 const keepalive = require("./keepalive");
-
 require("dotenv").config();
 
 const botToken = process.env.BOT_TOKEN;
@@ -37,7 +36,6 @@ client.on("messageCreate", (message) => {
         message.reply({
             content: `Hello! <@${message.author.id}>`,
         });
-        console.log(message);
     }
 });
 
@@ -52,6 +50,9 @@ client.on("interactionCreate", async (interaction) => {
     }
     if (commandName === "getweather") {
         getWeather(interaction, apiKey);
+    }
+    if (commandName === "joke") {
+        fetchJoke(interaction);
     }
     if (commandName === "tictactoe") {
         const mode = options.getString("mode");

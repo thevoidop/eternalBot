@@ -37,11 +37,15 @@ To get started with EternalBot, follow these steps:
 
 ## Usage
 
-To run the bot, use the following command:
+After adding the bot to your server, run the following command to register the slash commands:
+```bash
+node commands.js
+```
+Then start the main file to run the bot:
 ```bash
 node index.js
 ```
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License.

@@ -9,6 +9,13 @@ EternalBot is a versatile and interactive bot designed to enhance your Discord s
 - **Keepalive Functionality**: Ensures the bot remains active and responsive.
 - **User Interactions**: Handles various user interactions seamlessly.
 
+## Commands
+
+- roastme: Roasts the hell out of you with some nsfw comments
+- getweather - Gets the weather details of the entered city/place
+- rolldice - Simulates rolling of a dice for you
+- tictactoe - Allows you to play a game of TicTacToe. You can challenge others or play against AI.
+
 ## Installation
 
 To get started with EternalBot, follow these steps:

@@ -13,10 +13,10 @@ To see the bot in action, join the Discord server [here.](https://discord.gg/BGt
 
 ## Commands
 
-- roastme: Roasts the hell out of you with some nsfw comments
-- getweather - Gets the weather details of the entered city/place
-- rolldice - Simulates rolling of a dice for you
-- tictactoe - Allows you to play a game of TicTacToe. You can challenge others or play against AI.
+- **roastme:** Roasts the hell out of you with some nsfw comments
+- **getweather:** Gets the weather details of the entered city/place
+- **rolldice:** Simulates rolling of a dice for you
+- **tictactoe:** Allows you to play a game of TicTacToe. You can challenge others or play against AI.
 
 ## Installation
 

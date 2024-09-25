@@ -1,52 +1,99 @@
 # EternalBot
 
-EternalBot is a versatile and interactive bot designed to enhance your Discord server experience. It comes with a variety of features and commands to keep your community engaged and entertained.
+This project is a feature-rich Discord bot built using the **discord.js** library. It provides various fun interactions, including a **Tic Tac Toe** game, **weather fetching**, and a **roasting** feature. Designed for easy setup and extensibility, this bot will enhance your Discord server experience!
 
 To see the bot in action, join the Discord server [here.](https://discord.gg/BGt6fTSv)
 
+---
+
 ## Features
 
-- **Interactive Games**: Play games like Tic-Tac-Toe directly in your Discord server.
-- **Custom Commands**: Easily create and manage custom commands.
-- **Keepalive Functionality**: Ensures the bot remains active and responsive.
-- **User Interactions**: Handles various user interactions seamlessly.
+- **🕹️ Tic Tac Toe**: Play against a bot or challenge another user.
+- **🌦️ Weather Information**: Get real-time weather data for any city.
+- **🔥 Roasting**: Receive a random roast when you use the command.
+- **🔧 Custom Commands**: Easily add more commands and functionalities.
 
+---
 ## Commands
+Here are the commands you can use with this bot:
 
-- **roastme:** Roasts the hell out of you with some nsfw comments
-- **getweather:** Gets the weather details of the entered city/place
-- **rolldice:** Simulates rolling of a dice for you
-- **tictactoe:** Allows you to play a game of TicTacToe. You can challenge others or play against AI.
+- `/roastme:` Get a random roast.
+- `/rolldice:` Roll a die and get a random number between 1 and 6.
+- `/getweather:` Get the current weather for a specified city.
+- `Options:`
+    - `city` (required): Name of the city to fetch the weather for.
+- `/tictactoe:` Play Tic Tac Toe.
+    - **Options:**
+        - `mode` (required): Choose game mode (single for playing against a bot or multi for multiplayer).
+        - `opponent` (optional): Select your opponent for multiplayer mode.
+---
 
-## Installation
+## Prerequisites
 
-To get started with EternalBot, follow these steps:
+Before you get started, ensure you have the following installed:
 
-1. **Clone the repository**:
-    ```bash
-    git clone https://github.com/thevoidop/eternalBot.git
-    ```
-2. **Navigate to the project directory**:
-    ```bash
-    cd eternalBot
-    ```
-3. **Install the dependencies**:
-    ```bash
-    npm install
-    ```
-4. **Create a Discord bot and get its Token Key and paste it in the `.env` file**
-5. **Similarly get a OpenWeather API key and paste it in the `.env` file**
+- [Node.js](https://nodejs.org/) (version 16 or higher)
+- A Discord account and a server where you can test the bot
+---
+## Getting Started
 
-## Usage
+### 1. Clone the Repository
 
-After adding the bot to your server, run the following command to register the slash commands:
+```bash
+git clone https://github.com/yourusername/discord-bot.git
+cd discord-bot
+```
+
+### 2. Install Dependencies
+Run the following command to install the required packages:
+
+```bash
+npm install
+```
+
+### 3. Set Up Environment Variables
+Create a .env file in the root directory of your project and add the following variables:
+
+```plaintext
+BOT_TOKEN=YOUR_DISCORD_BOT_TOKEN
+OPENWEATHERMAP_API_KEY=YOUR_OPENWEATHERMAP_API_KEY
+PORT=YOUR_PORT (optional, defaults to 8000)
+```
+_BOT_TOKEN:_ Your bot token obtained from the Discord Developer Portal.
+
+_OPENWEATHERMAP_API_KEY_: Your API key for OpenWeatherMap to fetch weather data.
+
+### 4. Register the Commands
+Run the commands.js file to register the commands with Discord:
+
 ```bash
 node commands.js
 ```
-Then start the main file to run the bot:
+
+### 5. Start the Bot
+Run the following command to start the bot:
+
 ```bash
 node index.js
 ```
+
+### 6. Keep the Bot Alive
+The `keepalive.js` module sets up an Express server to keep the bot running. Ensure that your hosting environment allows for persistent connections if you deploy this bot.
+
+---
+
+## Contributing
+
+Contributions are welcome! If you have suggestions or improvements, please fork the repository and submit a pull request.
+
+---
+
+## Acknowledgments
+
+- `discord.js:` The powerful library used for interacting with the Discord API.
+- `OpenWeatherMap:` For providing weather data.
+
+---
 
 ## License
 

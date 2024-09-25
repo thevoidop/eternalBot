@@ -1,6 +1,6 @@
 # EternalBot
 
-This project is a feature-rich Discord bot built using the **discord.js** library. It provides various fun interactions, including a **Tic Tac Toe** game, **weather fetching**, and a **roasting** feature. Designed for easy setup and extensibility, this bot will enhance your Discord server experience!
+This project is a feature-rich Discord bot built using the **discord.js** library. It provides various fun interactions, including a **Tic Tac Toe** game, **weather fetching**, **random joke**, and a **roasting** feature. Designed for easy setup and extensibility, this bot will enhance your Discord server experience!
 
 To see the bot in action, join the Discord server [here.](https://discord.gg/BGt6fTSv)
 
@@ -11,7 +11,7 @@ To see the bot in action, join the Discord server [here.](https://discord.gg/BGt
 - **🕹️ Tic Tac Toe**: Play against a bot or challenge another user.
 - **🌦️ Weather Information**: Get real-time weather data for any city.
 - **🔥 Roasting**: Receive a random roast when you use the command.
-- **🤡 Joke**: Get a random joke.
+- **🤡 Joke**: Get a completely random and unique joke.
 - **🔧 Custom Commands**: Easily add more commands and functionalities.
 
 ---

@@ -87,7 +87,7 @@ Contributions are welcome! If you have suggestions or improvements, please fork 
 
 - `discord.js:` The powerful library used for interacting with the Discord API.
 - `OpenWeatherMap:` For providing weather data.
-- `Evil Insults:` For providing insults that burn you like hell fire.
+- `Evil Insult:` For providing insults that burn you like hell fire.
 - `icanhazdadjoke:` For blessing us with the dad jokes.
 
 ---

@@ -11,6 +11,7 @@ To see the bot in action, join the Discord server [here.](https://discord.gg/BGt
 - **🕹️ Tic Tac Toe**: Play against a bot or challenge another user.
 - **🌦️ Weather Information**: Get real-time weather data for any city.
 - **🔥 Roasting**: Receive a random roast when you use the command.
+- **🤡 Joke**: Get a random joke.
 - **🔧 Custom Commands**: Easily add more commands and functionalities.
 
 ---
@@ -20,6 +21,7 @@ Here are the commands you can use with this bot:
 - `/roastme:` Get a random roast.
 - `/rolldice:` Roll a die and get a random number between 1 and 6.
 - `/getweather:` Get the current weather for a specified city.
+- `/joke:` Get a random and unique joke.
 - `Options:`
     - `city` (required): Name of the city to fetch the weather for.
 - `/tictactoe:` Play Tic Tac Toe.
@@ -63,21 +65,14 @@ _BOT_TOKEN:_ Your bot token obtained from the Discord Developer Portal.
 
 _OPENWEATHERMAP_API_KEY_: Your API key for OpenWeatherMap to fetch weather data.
 
-### 4. Register the Commands
-Run the commands.js file to register the commands with Discord:
+### 4. Start the Bot
+Run the following command to register the commands and to start the bot:
 
 ```bash
-node commands.js
+npm start
 ```
 
-### 5. Start the Bot
-Run the following command to start the bot:
-
-```bash
-node index.js
-```
-
-### 6. Keep the Bot Alive
+### 5. Keep the Bot Alive
 The `keepalive.js` module sets up an Express server to keep the bot running. Ensure that your hosting environment allows for persistent connections if you deploy this bot.
 
 ---

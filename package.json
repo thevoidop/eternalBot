@@ -1,0 +1,23 @@
+{
+    "name": "discordbot",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "npx nodemon index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@discordjs/rest": "^2.4.0",
+        "axios": "^1.7.7",
+        "discord-api-types": "^0.37.100",
+        "discord-tictactoe": "^4.2.0",
+        "discord.js": "^14.16.2",
+        "discordbot": "file:",
+        "dotenv": "^16.4.5",
+        "nodemon": "^3.1.7",
+        "openai": "^4.63.0"
+    }
+}

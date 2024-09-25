@@ -20,10 +20,10 @@ Here are the commands you can use with this bot:
 
 - `/roastme:` Get a random roast.
 - `/rolldice:` Roll a die and get a random number between 1 and 6.
-- `/getweather:` Get the current weather for a specified city.
 - `/joke:` Get a random and unique joke.
-- `Options:`
-    - `city` (required): Name of the city to fetch the weather for.
+- `/getweather:` Get the current weather for a specified city.
+    - **Options:**
+        - `city` (required): Name of the city to fetch the weather for.
 - `/tictactoe:` Play Tic Tac Toe.
     - **Options:**
         - `mode` (required): Choose game mode (single for playing against a bot or multi for multiplayer).

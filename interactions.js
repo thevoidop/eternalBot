@@ -3,13 +3,17 @@ require("dotenv").config();
 
 async function roastMe(interaction) {
     try {
+        await interaction.deferReply();
+
         const response = await axios.get(
             "https://evilinsult.com/generate_insult.php?lang=en&type=json"
         );
-        await interaction.reply(response.data.insult);
+        await interaction.editReply(response.data.insult);
     } catch (error) {
         console.error("Error fetching insult:", error);
-        await interaction.reply("Sorry, I couldn't fetch an insult right now.");
+        await interaction.editReply(
+            "Sorry, I couldn't fetch an insult right now."
+        );
     }
 }
 

@@ -1,11 +1,9 @@
-const { Client, Events, GatewayIntentBits } = require("discord.js");
+const { Client, GatewayIntentBits } = require("discord.js");
 const TicTacToe = require("discord-tictactoe");
 const { roastMe, rollDice, getWeather } = require("./interactions");
-const { tictactoe, startGame, aiMove } = require("./tictactoe");
-const keepalive = require("./keepalive")
 
 require("dotenv").config();
-keepalive();
+
 const botToken = process.env.BOT_TOKEN;
 const apiKey = process.env.OPENWEATHERMAP_API_KEY;
 const game = new TicTacToe({ language: "en" });
@@ -62,20 +60,9 @@ client.on("interactionCreate", async (interaction) => {
             game.handleInteraction(interaction, { opponent: "bot" });
         } else if (mode === "multi") {
             if (opponent) {
-                game.handleInteraction(interaction, { opponent });
-            } else {
-                game.handleInteraction(interaction);
+                game.handleInteraction(interaction, { opponent: opponent.id });
             }
         }
-    }
-});
-
-client.on("guildMemberAdd", (member) => {
-    const channel = member.guild.channels.cache.find(
-        (channel) => channel.name === "general"
-    );
-    if (channel) {
-        channel.send(`Welcome to the server, ${member}! 🎉`);
     }
 });
 

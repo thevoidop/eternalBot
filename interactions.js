@@ -39,35 +39,31 @@ async function roastMe(interaction) {
         const timeoutPromise = new Promise((_, reject) => {
             setTimeout(() => {
                 reject(new Error("API request timed out after 10 seconds"));
-            }, 10000); // Timeout set to 10 seconds
+            }, 10000);
         });
 
         console.time("API Call");
         const response = await Promise.race([
-            axios.get(
-                "https://evilinsult.com/generate_insult.php?lang=en&type=json"
-            ),
+            axios.get("https://evilinsult.com/generate_insult.php?lang=en&type=json"),
             timeoutPromise,
         ]);
         console.timeEnd("API Call");
 
-        console.log("Received API response:", response.data);
+        const insult = response.data?.insult || "Couldn't fetch a proper insult.";
         console.log("Editing reply with fetched insult...");
-        await interaction.editReply(response.data.insult);
+        await interaction.editReply(insult);
+
+        console.log("Reply edited successfully.");
     } catch (error) {
         console.error("Error fetching insult:", error);
 
-        const randomInsult =
-            predefinedInsults[
-                Math.floor(Math.random() * predefinedInsults.length)
-            ];
-
-        console.log(
-            `Deferred: ${interaction.deferred}, Replied: ${interaction.replied}`
-        );
+        const randomInsult = predefinedInsults[Math.floor(Math.random() * predefinedInsults.length)];
+        console.log(`Deferred: ${interaction.deferred}, Replied: ${interaction.replied}`);
         console.log("Editing deferred reply with fallback insult...");
+
         try {
             await interaction.editReply(randomInsult);
+            console.log("Fallback reply edited successfully.");
         } catch (editError) {
             console.error("Error editing reply:", editError);
             await interaction.followUp(randomInsult);

@@ -1,6 +1,34 @@
 const axios = require("axios");
 require("dotenv").config();
 
+const predefinedInsults = [
+    "You're so slow, you make a snail look like a race car.",
+    "If brains were dynamite, you wouldn't have enough to blow your nose.",
+    "You're the reason the gene pool needs a lifeguard.",
+    "You're not pretty enough to be this dumb.",
+    "You're like a cloud. When you disappear, it's a beautiful day.",
+    "You're the reason they put instructions on shampoo.",
+    "You're not stupid; you just have bad luck when thinking.",
+    "You're like a Monday morning, nobody likes you.",
+    "You're the reason why aliens don't visit us.",
+    "Go drown in a lake of diet coke you neutered asshole.",
+    "Two wrongs don't make a right, take your parents as an example.",
+    "If I wanted to kill myself I'd climb your ego and jump to your IQ.",
+    "After meeting you, I’ve decided I am in favor of abortion in cases of incest.",
+    "If a zombie was looking for brains, he'd walk right by you.",
+    "You're about as useful as a knitted condom.",
+    "Are you always this stupid, or is this a special occasion?",
+    "You're so full of shit, the toilet is jealous.",
+    "If my dog had a face like yours I'd shave its ass and make it walk backwards.",
+    "You look like something I drew with my left hand.",
+    "You are proof that God has a sense of humour.",
+    "You're about as sharp as a bowling ball and twice as dense.",
+    "It is clear that you have been educated beyond your intelligence.",
+    "You're so stupid, you'd get lost in a one-way street.",
+    "It's my fault, I underestimated your stupidity.",
+    "You are the human equivalent of a participation award.",
+];
+
 async function roastMe(interaction) {
     try {
         await interaction.deferReply();
@@ -11,9 +39,11 @@ async function roastMe(interaction) {
         await interaction.editReply(response.data.insult);
     } catch (error) {
         console.error("Error fetching insult:", error);
-        await interaction.editReply(
-            "Sorry, I couldn't fetch an insult right now."
-        );
+        const randomInsult =
+            predefinedInsults[
+                Math.floor(Math.random() * predefinedInsults.length)
+            ];
+        await interaction.editReply(randomInsult);
     }
 }
 

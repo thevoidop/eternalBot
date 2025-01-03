@@ -29,61 +29,57 @@ const predefinedInsults = [
     "You are the human equivalent of a participation award.",
 ];
 
+// ✅ Updated roastMe function
 async function roastMe(interaction) {
     console.log("roastMe function called.");
     try {
-        
         console.log("Deferring reply...");
         await interaction.deferReply();
-        const timeoutPromise = new Promise((_, reject) => {
-            setTimeout(() => {
-                reject(new Error("API request timed out after 10 seconds"));
-            }, 10000);
-        });
+
+        // API call with timeout safeguard
+        const timeoutPromise = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("API request timed out")), 10000)
+        );
 
         console.time("API Call");
         const response = await Promise.race([
             axios.get("https://evilinsult.com/generate_insult.php?lang=en&type=json"),
             timeoutPromise,
         ]);
-        
         console.timeEnd("API Call");
-        const insult = response.data?.insult;
-        console.log("Received insult:", insult);
-        if (!insult) {
-            throw new Error("API response did not contain a valid insult.");
-        }
 
+        const insult = response.data?.insult || "Couldn't fetch a proper insult.";
         console.log("Editing reply with fetched insult...");
         await interaction.editReply(insult);
         console.log("Reply edited successfully.");
-
     } catch (error) {
         console.error("Error during roastMe function:", error);
         const randomInsult = predefinedInsults[Math.floor(Math.random() * predefinedInsults.length)];
-
-        console.log(`Deferred: ${interaction.deferred}, Replied: ${interaction.replied}`);
         try {
             if (interaction.deferred || interaction.replied) {
-                console.log("Editing deferred reply with fallback insult...");
                 await interaction.editReply(randomInsult);
-                console.log("Fallback reply edited successfully.");
             } else {
-                console.log("Sending follow-up message with fallback insult...");
-                await interaction.followUp(randomInsult);
-                console.log("Follow-up message sent successfully.");
+                await interaction.reply(randomInsult);
             }
         } catch (editError) {
-            console.error("Error editing reply with fallback insult:", editError);
+            console.error("Error editing reply:", editError);
         }
     }
 }
 
+// ✅ Updated rollDice function
 async function rollDice(interaction) {
-    let roll = Math.floor(Math.random() * 6) + 1;
-    await interaction.reply(`The die rolled: ${roll}`);
+    try {
+        const roll = Math.floor(Math.random() * 6) + 1;
+        console.log("Rolling dice...");
+        await interaction.reply(`The die rolled: ${roll}`);
+    } catch (error) {
+        console.error("Error during rollDice function:", error);
+        await interaction.reply("Oops! Something went wrong while rolling the dice.");
+    }
 }
 
+// ✅ Updated getWeather function
 async function getWeather(interaction, apiKey) {
     const city = interaction.options.getString("city");
     console.log("Fetching weather for city:", city);
@@ -91,8 +87,8 @@ async function getWeather(interaction, apiKey) {
         const response = await axios.get(
             `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
         );
-        const weather = response.data;
 
+        const weather = response.data;
         const weatherMessage =
             `Current weather in **${weather.name}**:\n` +
             `Temperature: ${weather.main.temp}°C\n` +
@@ -102,16 +98,12 @@ async function getWeather(interaction, apiKey) {
 
         await interaction.reply(weatherMessage);
     } catch (error) {
-        console.error(
-            "Weather fetch error:",
-            error.response ? error.response.data : error.message
-        );
-        await interaction.reply(
-            "Could not fetch weather data. Please make sure the city name is correct."
-        );
+        console.error("Weather fetch error:", error.response ? error.response.data : error.message);
+        await interaction.reply("Could not fetch weather data. Please make sure the city name is correct.");
     }
 }
 
+// ✅ Updated fetchJoke function
 async function fetchJoke(interaction) {
     try {
         const response = await axios.get("https://icanhazdadjoke.com/slack", {
@@ -119,12 +111,15 @@ async function fetchJoke(interaction) {
                 Accept: "application/json",
             },
         });
-        await interaction.reply(response.data.attachments[0].text);
+        const joke = response.data.attachments[0]?.text || "Couldn't fetch a joke at the moment.";
+        await interaction.reply(joke);
     } catch (error) {
         console.error("Error fetching joke:", error);
+        await interaction.reply("Oops! Something went wrong while fetching a joke.");
     }
 }
 
+// ✅ Export all functions
 module.exports = {
     roastMe,
     rollDice,

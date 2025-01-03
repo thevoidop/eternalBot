@@ -29,7 +29,6 @@ const predefinedInsults = [
     "You are the human equivalent of a participation award.",
 ];
 
-// ✅ Updated roastMe function
 async function roastMe(interaction) {
     console.log("roastMe function called.");
     try {

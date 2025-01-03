@@ -30,14 +30,16 @@ const predefinedInsults = [
 ];
 
 async function roastMe(interaction) {
+    console.log("roastMe function called.");
+
     try {
         console.log("Deferring reply...");
         await interaction.deferReply();
 
         const timeoutPromise = new Promise((_, reject) => {
             setTimeout(() => {
-                reject(new Error("API request timed out after 5 seconds"));
-            }, 5000);
+                reject(new Error("API request timed out after 10 seconds"));
+            }, 10000); // Timeout set to 10 seconds
         });
 
         console.time("API Call");
@@ -49,6 +51,7 @@ async function roastMe(interaction) {
         ]);
         console.timeEnd("API Call");
 
+        console.log("Received API response:", response.data);
         console.log("Editing reply with fetched insult...");
         await interaction.editReply(response.data.insult);
     } catch (error) {
@@ -71,6 +74,7 @@ async function roastMe(interaction) {
         }
     }
 }
+
 async function rollDice(interaction) {
     let roll = Math.floor(Math.random() * 6) + 1;
     await interaction.reply(`The die rolled: ${roll}`);

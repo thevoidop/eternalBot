@@ -31,19 +31,44 @@ const predefinedInsults = [
 
 async function roastMe(interaction) {
     try {
+        console.log("Deferring reply...");
         await interaction.deferReply();
 
-        const response = await axios.get(
-            "https://evilinsult.com/generate_insult.php?lang=en&type=json"
-        );
+        const timeoutPromise = new Promise((_, reject) => {
+            setTimeout(() => {
+                reject(new Error("API request timed out after 3 seconds"));
+            }, 3000);
+        });
+
+        console.time("API Call");
+        const response = await Promise.race([
+            axios.get(
+                "https://evilinsult.com/generate_insult.php?lang=en&type=json"
+            ),
+            timeoutPromise,
+        ]);
+        console.timeEnd("API Call");
+
+        console.log("Editing reply with fetched insult...");
         await interaction.editReply(response.data.insult);
     } catch (error) {
         console.error("Error fetching insult:", error);
+
         const randomInsult =
             predefinedInsults[
                 Math.floor(Math.random() * predefinedInsults.length)
             ];
-        await interaction.editReply(randomInsult);
+
+        console.log(
+            `Deferred: ${interaction.deferred}, Replied: ${interaction.replied}`
+        );
+        if (!interaction.deferred && !interaction.replied) {
+            console.log("Sending new reply...");
+            await interaction.reply(randomInsult);
+        } else {
+            console.log("Editing deferred reply...");
+            await interaction.editReply(randomInsult);
+        }
     }
 }
 

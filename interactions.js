@@ -31,11 +31,10 @@ const predefinedInsults = [
 
 async function roastMe(interaction) {
     console.log("roastMe function called.");
-
     try {
+        
         console.log("Deferring reply...");
         await interaction.deferReply();
-
         const timeoutPromise = new Promise((_, reject) => {
             setTimeout(() => {
                 reject(new Error("API request timed out after 10 seconds"));
@@ -47,26 +46,35 @@ async function roastMe(interaction) {
             axios.get("https://evilinsult.com/generate_insult.php?lang=en&type=json"),
             timeoutPromise,
         ]);
+        
         console.timeEnd("API Call");
+        const insult = response.data?.insult;
+        console.log("Received insult:", insult);
+        if (!insult) {
+            throw new Error("API response did not contain a valid insult.");
+        }
 
-        const insult = response.data?.insult || "Couldn't fetch a proper insult.";
         console.log("Editing reply with fetched insult...");
         await interaction.editReply(insult);
-
         console.log("Reply edited successfully.");
+
     } catch (error) {
-        console.error("Error fetching insult:", error);
-
+        console.error("Error during roastMe function:", error);
         const randomInsult = predefinedInsults[Math.floor(Math.random() * predefinedInsults.length)];
-        console.log(`Deferred: ${interaction.deferred}, Replied: ${interaction.replied}`);
-        console.log("Editing deferred reply with fallback insult...");
 
+        console.log(`Deferred: ${interaction.deferred}, Replied: ${interaction.replied}`);
         try {
-            await interaction.editReply(randomInsult);
-            console.log("Fallback reply edited successfully.");
+            if (interaction.deferred || interaction.replied) {
+                console.log("Editing deferred reply with fallback insult...");
+                await interaction.editReply(randomInsult);
+                console.log("Fallback reply edited successfully.");
+            } else {
+                console.log("Sending follow-up message with fallback insult...");
+                await interaction.followUp(randomInsult);
+                console.log("Follow-up message sent successfully.");
+            }
         } catch (editError) {
-            console.error("Error editing reply:", editError);
-            await interaction.followUp(randomInsult);
+            console.error("Error editing reply with fallback insult:", editError);
         }
     }
 }

@@ -63,10 +63,14 @@ async function roastMe(interaction) {
             `Deferred: ${interaction.deferred}, Replied: ${interaction.replied}`
         );
         console.log("Editing deferred reply with fallback insult...");
-        await interaction.editReply(randomInsult);
+        try {
+            await interaction.editReply(randomInsult);
+        } catch (editError) {
+            console.error("Error editing reply:", editError);
+            await interaction.followUp(randomInsult);
+        }
     }
 }
-
 async function rollDice(interaction) {
     let roll = Math.floor(Math.random() * 6) + 1;
     await interaction.reply(`The die rolled: ${roll}`);

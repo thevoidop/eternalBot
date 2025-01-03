@@ -36,8 +36,8 @@ async function roastMe(interaction) {
 
         const timeoutPromise = new Promise((_, reject) => {
             setTimeout(() => {
-                reject(new Error("API request timed out after 3 seconds"));
-            }, 3000);
+                reject(new Error("API request timed out after 5 seconds"));
+            }, 5000);
         });
 
         console.time("API Call");
@@ -62,13 +62,8 @@ async function roastMe(interaction) {
         console.log(
             `Deferred: ${interaction.deferred}, Replied: ${interaction.replied}`
         );
-        if (!interaction.deferred && !interaction.replied) {
-            console.log("Sending new reply...");
-            await interaction.reply(randomInsult);
-        } else {
-            console.log("Editing deferred reply...");
-            await interaction.editReply(randomInsult);
-        }
+        console.log("Editing deferred reply with fallback insult...");
+        await interaction.editReply(randomInsult);
     }
 }
 

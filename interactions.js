@@ -118,7 +118,7 @@ async function fetchQuote(interaction) {
         const response = await axios.get("https://zenquotes.io/api/random");
         const quote = response.data[0];
 
-        const quoteMessage = `> "${quote.q}"\n- ${quote.a}`;
+        const quoteMessage = `> "${quote.q}"\n~ ${quote.a}`;
         await interaction.reply(quoteMessage);
     } catch (error) {
         console.error("Error fetching quote:", error);

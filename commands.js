@@ -52,7 +52,7 @@ const commands = [
     },
     {
         name: "quote",
-        description: "Fetches a random motivational quote",
+        description: "Fetches a random quote",
     },
 ];
 

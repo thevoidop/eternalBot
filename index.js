@@ -61,7 +61,7 @@ client.on("interactionCreate", async (interaction) => {
         fetchJoke(interaction);
     }
     if (commandName === "quote") {
-        getQuote(interaction);
+        fetchQuote(interaction);
     }
     if (commandName === "tictactoe") {
         const mode = options.getString("mode");

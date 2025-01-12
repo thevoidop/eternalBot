@@ -116,9 +116,12 @@ async function fetchJoke(interaction) {
 async function fetchQuote(interaction) {
     try {
         const response = await axios.get("https://zenquotes.io/api/random");
-        const quote = response.data[0];
-
-        const quoteMessage = `> ${quote.q}\n~ ${quote.a}`;
+        const quoteData =
+            typeof response.data === "string"
+                ? JSON.parse(response.data)
+                : response.data;
+        const quote = quoteData[0];
+        const quoteMessage = `> ${quote.q}\n- ${quote.a}`;
         await interaction.reply(quoteMessage);
     } catch (error) {
         console.error("Error fetching quote:", error);

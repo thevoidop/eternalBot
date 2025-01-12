@@ -50,6 +50,10 @@ const commands = [
             },
         ],
     },
+    {
+        name: "quote",
+        description: "Fetches a random motivational quote",
+    },
 ];
 
 const rest = new REST({ version: "9" }).setToken(botToken);
@@ -60,7 +64,6 @@ const rest = new REST({ version: "9" }).setToken(botToken);
             `Started refreshing ${commands.length} application (/) commands.`
         );
 
-        // The put method is used to fully refresh all commands in the guild with the current set
         const data = await rest.put(
             Routes.applicationGuildCommands(
                 "1286975708668887070",

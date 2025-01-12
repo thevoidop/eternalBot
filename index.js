@@ -1,6 +1,12 @@
 const { Client, GatewayIntentBits } = require("discord.js");
 const TicTacToe = require("discord-tictactoe");
-const { roastMe, rollDice, getWeather, fetchJoke } = require("./interactions");
+const {
+    roastMe,
+    rollDice,
+    getWeather,
+    fetchJoke,
+    fetchQuote,
+} = require("./interactions");
 const keepalive = require("./keepalive");
 require("dotenv").config();
 
@@ -54,11 +60,13 @@ client.on("interactionCreate", async (interaction) => {
     if (commandName === "joke") {
         fetchJoke(interaction);
     }
+    if (commandName === "quote") {
+        getQuote(interaction);
+    }
     if (commandName === "tictactoe") {
         const mode = options.getString("mode");
         const opponent = options.getUser("opponent");
 
-        // Defer the reply first to avoid interaction reply errors
         await interaction.deferReply();
 
         if (mode === "single") {

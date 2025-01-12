@@ -121,7 +121,7 @@ async function fetchQuote(interaction) {
                 ? JSON.parse(response.data)
                 : response.data;
         const quote = quoteData[0];
-        const quoteMessage = `> ${quote.q}\n- ${quote.a}`;
+        const quoteMessage = `> ${quote.q}\n~ ${quote.a}`;
         await interaction.reply(quoteMessage);
     } catch (error) {
         console.error("Error fetching quote:", error);

@@ -12,6 +12,7 @@ require("dotenv").config();
 
 const botToken = process.env.BOT_TOKEN;
 const apiKey = process.env.OPENWEATHERMAP_API_KEY;
+const PORT = process.env.PORT || 4000;
 const game = new TicTacToe({ language: "en" });
 
 const client = new Client({
@@ -83,3 +84,4 @@ client.on("interactionCreate", async (interaction) => {
 
 client.login(botToken);
 keepalive();
+

@@ -11,6 +11,7 @@ To see the bot in action, join the Discord server [here.](https://discord.gg/BGt
 - **🕹️ Tic Tac Toe**: Play against a bot or challenge another user.
 - **🌦️ Weather Information**: Get real-time weather data for any city.
 - **🔥 Roasting**: Receive a random roast when you use the command.
+- **📜 Quote**: Receive an inspirational quote.
 - **🤡 Joke**: Get a completely random and unique joke.
 - **🔧 Custom Commands**: Easily add more commands and functionalities.
 
@@ -28,6 +29,7 @@ Here are the commands you can use with this bot:
     - **Options:**
         - `mode` (required): Choose game mode (single for playing against a bot or multi for multiplayer).
         - `opponent` (optional): Select your opponent for multiplayer mode.
+- `/quote:` Get a random inspirational quote.
 ---
 
 ## Prerequisites
@@ -89,6 +91,7 @@ Contributions are welcome! If you have suggestions or improvements, please fork 
 - `OpenWeatherMap:` For providing weather data.
 - `Evil Insult:` For providing insults that burn you like hell fire.
 - `icanhazdadjoke:` For blessing us with the dad jokes.
+- `ZenQuotes:` For providing inspirational quotes
 
 ---
 

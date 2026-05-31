@@ -2,139 +2,140 @@ const axios = require("axios");
 require("dotenv").config();
 
 const predefinedInsults = [
-    "You're so slow, you make a snail look like a race car.",
-    "If brains were dynamite, you wouldn't have enough to blow your nose.",
-    "You're the reason the gene pool needs a lifeguard.",
-    "You're not pretty enough to be this dumb.",
-    "You're like a cloud. When you disappear, it's a beautiful day.",
-    "You're the reason they put instructions on shampoo.",
-    "You're not stupid; you just have bad luck when thinking.",
-    "You're like a Monday morning, nobody likes you.",
-    "You're the reason why aliens don't visit us.",
-    "Go drown in a lake of diet coke you neutered asshole.",
-    "Two wrongs don't make a right, take your parents as an example.",
-    "If I wanted to kill myself I'd climb your ego and jump to your IQ.",
-    "After meeting you, I’ve decided I am in favor of abortion in cases of incest.",
-    "If a zombie was looking for brains, he'd walk right by you.",
-    "You're about as useful as a knitted condom.",
-    "Are you always this stupid, or is this a special occasion?",
-    "You're so full of shit, the toilet is jealous.",
-    "If my dog had a face like yours I'd shave its ass and make it walk backwards.",
-    "You look like something I drew with my left hand.",
-    "You are proof that God has a sense of humour.",
-    "You're about as sharp as a bowling ball and twice as dense.",
-    "It is clear that you have been educated beyond your intelligence.",
-    "You're so stupid, you'd get lost in a one-way street.",
-    "It's my fault, I underestimated your stupidity.",
-    "You are the human equivalent of a participation award.",
+  "You're so slow, you make a snail look like a race car.",
+  "If brains were dynamite, you wouldn't have enough to blow your nose.",
+  "You're the reason the gene pool needs a lifeguard.",
+  "You're not pretty enough to be this dumb.",
+  "You're like a cloud. When you disappear, it's a beautiful day.",
+  "You're the reason they put instructions on shampoo.",
+  "You're not stupid; you just have bad luck when thinking.",
+  "You're like a Monday morning, nobody likes you.",
+  "You're the reason why aliens don't visit us.",
+  "Go drown in a lake of diet coke you neutered asshole.",
+  "Two wrongs don't make a right, take your parents as an example.",
+  "If I wanted to kill myself I'd climb your ego and jump to your IQ.",
+  "After meeting you, I’ve decided I am in favor of abortion in cases of incest.",
+  "If a zombie was looking for brains, he'd walk right by you.",
+  "You're about as useful as a knitted condom.",
+  "Are you always this stupid, or is this a special occasion?",
+  "You're so full of shit, the toilet is jealous.",
+  "If my dog had a face like yours I'd shave its ass and make it walk backwards.",
+  "You look like something I drew with my left hand.",
+  "You are proof that God has a sense of humour.",
+  "You're about as sharp as a bowling ball and twice as dense.",
+  "It is clear that you have been educated beyond your intelligence.",
+  "You're so stupid, you'd get lost in a one-way street.",
+  "It's my fault, I underestimated your stupidity.",
+  "You are the human equivalent of a participation award.",
 ];
 
 async function roastMe(interaction) {
-    try {
-        console.log("Deferring reply...");
-        await interaction.deferReply();
+  try {
+    console.log("Deferring reply...");
+    await interaction.deferReply();
 
-        const timeoutPromise = new Promise((_, reject) => {
-            setTimeout(() => {
-                reject(new Error("API request timed out after 5 seconds"));
-            }, 5000);
-        });
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => {
+        reject(new Error("API request timed out after 5 seconds"));
+      }, 5000);
+    });
 
-        console.time("API Call");
-        const response = await Promise.race([
-            axios.get(
-                "https://evilinsult.com/generate_insult.php?lang=en&type=json"
-            ),
-            timeoutPromise,
-        ]);
-        console.timeEnd("API Call");
+    console.time("API Call");
+    const response = await Promise.race([
+      axios.get("https://insult.mattbas.org/api/insult", {
+        responseType: "text",
+      }),
+      timeoutPromise,
+    ]);
+    console.timeEnd("API Call");
 
-        console.log("Editing reply with fetched insult...");
-        await interaction.editReply(response.data.insult);
-    } catch (error) {
-        console.error("Error fetching insult:", error);
+    // response.data is the insult string directly
+    const insult = response.data;
+    console.log("Editing reply with fetched insult...");
+    await interaction.editReply(insult);
+  } catch (error) {
+    console.error("Error fetching insult:", error);
 
-        const randomInsult =
-            predefinedInsults[
-                Math.floor(Math.random() * predefinedInsults.length)
-            ];
+    // Fallback to a random predefined insult
+    const randomInsult =
+      predefinedInsults[Math.floor(Math.random() * predefinedInsults.length)];
 
-        console.log(
-            `Deferred: ${interaction.deferred}, Replied: ${interaction.replied}`
-        );
-        console.log("Editing deferred reply with fallback insult...");
-        await interaction.editReply(randomInsult);
-    }
+    console.log(
+      `Deferred: ${interaction.deferred}, Replied: ${interaction.replied}`,
+    );
+    console.log("Editing deferred reply with fallback insult...");
+    await interaction.editReply(randomInsult);
+  }
 }
 
 async function rollDice(interaction) {
-    let roll = Math.floor(Math.random() * 6) + 1;
-    await interaction.reply(`The die rolled: ${roll}`);
+  let roll = Math.floor(Math.random() * 6) + 1;
+  await interaction.reply(`The die rolled: ${roll}`);
 }
 
 async function getWeather(interaction, apiKey) {
-    const city = interaction.options.getString("city");
-    console.log("Fetching weather for city:", city);
-    try {
-        const response = await axios.get(
-            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
-        );
-        const weather = response.data;
+  const city = interaction.options.getString("city");
+  console.log("Fetching weather for city:", city);
+  try {
+    const response = await axios.get(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`,
+    );
+    const weather = response.data;
 
-        const weatherMessage =
-            `Current weather in **${weather.name}**:\n` +
-            `Temperature: ${weather.main.temp}°C\n` +
-            `Weather: ${weather.weather[0].description}\n` +
-            `Humidity: ${weather.main.humidity}%\n` +
-            `Wind Speed: ${weather.wind.speed} m/s`;
+    const weatherMessage =
+      `Current weather in **${weather.name}**:\n` +
+      `Temperature: ${weather.main.temp}°C\n` +
+      `Weather: ${weather.weather[0].description}\n` +
+      `Humidity: ${weather.main.humidity}%\n` +
+      `Wind Speed: ${weather.wind.speed} m/s`;
 
-        await interaction.reply(weatherMessage);
-    } catch (error) {
-        console.error(
-            "Weather fetch error:",
-            error.response ? error.response.data : error.message
-        );
-        await interaction.reply(
-            "Could not fetch weather data. Please make sure the city name is correct."
-        );
-    }
+    await interaction.reply(weatherMessage);
+  } catch (error) {
+    console.error(
+      "Weather fetch error:",
+      error.response ? error.response.data : error.message,
+    );
+    await interaction.reply(
+      "Could not fetch weather data. Please make sure the city name is correct.",
+    );
+  }
 }
 
 async function fetchJoke(interaction) {
-    try {
-        const response = await axios.get("https://icanhazdadjoke.com/slack", {
-            headers: {
-                Accept: "application/json",
-            },
-        });
-        await interaction.reply(response.data.attachments[0].text);
-    } catch (error) {
-        console.error("Error fetching joke:", error);
-    }
+  try {
+    const response = await axios.get("https://icanhazdadjoke.com/slack", {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    await interaction.reply(response.data.attachments[0].text);
+  } catch (error) {
+    console.error("Error fetching joke:", error);
+  }
 }
 
 async function fetchQuote(interaction) {
-    try {
-        const response = await axios.get("https://zenquotes.io/api/random");
-        const quoteData =
-            typeof response.data === "string"
-                ? JSON.parse(response.data)
-                : response.data;
-        const quote = quoteData[0];
-        const quoteMessage = `> ${quote.q}\n~ ${quote.a}`;
-        await interaction.reply(quoteMessage);
-    } catch (error) {
-        console.error("Error fetching quote:", error);
-        await interaction.reply(
-            "Couldn't fetch a quote at the moment. Try again later!"
-        );
-    }
+  try {
+    const response = await axios.get("https://zenquotes.io/api/random");
+    const quoteData =
+      typeof response.data === "string"
+        ? JSON.parse(response.data)
+        : response.data;
+    const quote = quoteData[0];
+    const quoteMessage = `> ${quote.q}\n- ${quote.a}`;
+    await interaction.reply(quoteMessage);
+  } catch (error) {
+    console.error("Error fetching quote:", error);
+    await interaction.reply(
+      "Couldn't fetch a quote at the moment. Try again later!",
+    );
+  }
 }
 
 module.exports = {
-    roastMe,
-    rollDice,
-    getWeather,
-    fetchJoke,
-    fetchQuote,
+  roastMe,
+  rollDice,
+  getWeather,
+  fetchJoke,
+  fetchQuote,
 };
